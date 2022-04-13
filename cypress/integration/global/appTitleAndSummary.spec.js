@@ -1,0 +1,23 @@
+const content = require('../../fixtures/content.json')
+
+describe('Global Test', () => {
+    it('App Title and Summary', () => {
+        cy.get('[data-testid="aboutYouHeader"]').should('have.text', content.title).and('be.visible')
+        cy.get('[data-testid="aboutYouHeaderIntro"]').should('have.text', content.subTitle).and('be.visible')
+        cy.get('[data-testid="stepIndicatorStep2"]').click()
+        cy.get('[data-testid="incomeWithholdingHeader"]').should('have.text', content.title).and('be.visible')
+        cy.get('[data-testid="incomeWithholdingHeaderIntro"]').should('have.text', content.subTitle).and('be.visible')
+        cy.get('[data-testid="stepIndicatorStep3"]').click()
+        cy.get('[data-testid="adjustmentsHeader"]').should('have.text', content.title).and('be.visible')
+        cy.get('[data-testid="adjustmentsHeaderIntro"]').should('have.text', content.subTitle).and('be.visible')
+        cy.get('[data-testid="stepIndicatorStep4"]').click()
+        cy.get('[data-testid="deductionsHeader"]').should('have.text', content.title).and('be.visible')
+        cy.get('[data-testid="deductionsHeaderIntro"]').should('have.text', content.subTitle).and('be.visible')
+        cy.get('[data-testid="stepIndicatorStep5"]').click()
+        cy.get('[data-testid="taxCreditsHeader"]').should('have.text', content.title).and('be.visible')
+        cy.get('[data-testid="taxCreditsHeaderIntro"]').should('have.text', content.subTitle).and('be.visible')
+        cy.get('[data-testid="stepIndicatorStep6"]').click()
+        cy.get('[data-testid="resultsHeader"]').should('have.text', content.title).and('be.visible')
+        cy.get('[data-testid="resultsHeaderIntro"]').should('have.text', content.subTitle).and('be.visible')
+    })
+})

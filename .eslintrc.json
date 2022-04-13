@@ -1,0 +1,76 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": ["plugin:react/recommended", "airbnb"],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly",
+    "React": "writable",
+    "it": "readonly",
+    "describe": "readonly",
+    "cy": "readonly",
+    "Cypress": "readonly"
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 11,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "prettier"],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ],
+    "comma-dangle": "off",
+    "func-names": "off",
+    "function-paren-newline": "off",
+    "implicit-arrow-linebreak": "off",
+    "import/no-dynamic-require": "off",
+    "indent": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": "off",
+    "jsx-a11y/no-noninteractive-tabindex": "off",
+    "jsx-a11y/label-has-associated-control": [
+      2,
+      {
+        "labelComponents": ["CustomInputLabel"],
+        "labelAttributes": ["label"],
+        "controlComponents": ["CustomInput"],
+        "depth": 3
+      }
+    ],
+    "linebreak-style": "off",
+    "max-len": [2, 140, 2, { "ignoreUrls": true }],
+    "no-case-declarations": "off",
+    "no-lonely-if": "off",
+    "no-nested-ternary": "off",
+    "no-plusplus": "off",
+    "no-unused-expressions": "off",
+    "no-unused-vars": "warn",
+    "object-curly-newline": "off",
+    "one-var": "off",
+    "operator-linebreak": ["error", "before"],
+    "quote-props": "off",
+    "radix": ["error", "as-needed"],
+    "react/button-has-type": "off",
+    "react/forbid-prop-types": "off",
+    "react/jsx-closing-tag-location": "off",
+    "react/jsx-curly-newline": "off",
+    "react/jsx-indent": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/no-array-index-key": "off",
+    "react/no-unescaped-entities": "off",
+    "react/require-default-props": "off",
+    "react/self-closing-comp": "off",
+    "semi": "off"
+  }
+}

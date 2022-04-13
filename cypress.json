@@ -1,0 +1,14 @@
+{
+  "viewportWidth": 1200,
+  "viewportHeight": 860,
+  "defaultCommandTimeout": 15000,
+  "scrollBehavior": "center",
+  "experimentalFetchPolyfill": true,
+  "testFiles": ["**/*.{feature,features}", "**/*.spec.{js,ts,jsx,tsx}"],
+  "component": {
+    "testFiles": "**/*.spec.{js,ts,jsx,tsx}",
+    "componentFolder": "components"
+  },
+  "projectId": "b9j9y7",
+  "video": false
+}

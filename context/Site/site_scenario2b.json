@@ -1,0 +1,992 @@
+{
+  "forms": {
+    "aboutYou": {
+      "completed": true,
+      "stepIndicatorTitle": "global.a.aboutYou",
+      "stepIndicatorRoute": "aboutYou",
+      "values": {
+        "filingStatus": "married",
+        "jobOrPension": "yes",
+        "demographics": [
+          ""
+        ]
+      },
+      "helpTips": {
+        "filingStatus": {
+          "key": "tt-filingStatus-1",
+          "id": "filingStatusTT",
+          "open": false
+        },
+        "jobOrPension": {
+          "key": "tt-jobOrPension-1",
+          "id": "jobOrPensionTT",
+          "open": false
+        },
+        "blind": {
+          "key": "tt-blind-1",
+          "id": "blindTT",
+          "open": false
+        },
+        "claimedAsDependent": {
+          "key": "tt-claimedAsDependent-1",
+          "id": "claimedAsDependentTT",
+          "open": false
+        },
+        "willClaimDependents": {
+          "key": "tt-willClaimDependents-1",
+          "id": "willClaimDependentsTT",
+          "open": false
+        }
+      }
+    },
+    "incomeWithholding": {
+      "completed": true,
+      "stepIndicatorTitle": "global.a.incomeWithholding",
+      "stepIndicatorRoute": "incomeWithholding",
+      "accordionOpenArr": [
+        true,
+        true
+      ],
+      "values": {
+        "numOfJobs": 2,
+        "jobs": [
+          {
+            "incomeType": "salary",
+            "timePeriodOfJob": "allYear",
+            "dateRange": {
+              "startDate": "",
+              "endDate": ""
+            },
+            "payFrequency": "weekly",
+            "dateLastPayPeriod": "10/14/2021",
+            "wagesPerPayPeriod": "0",
+            "wagesYTD": "100000",
+            "isIncomeAmountCorrect": "yes",
+            "correctedWages": "",
+            "taxesPerPayPeriod": "200",
+            "taxesYTD": "9000",
+            "hourlyWage": "",
+            "hours": "",
+            "payStatementOptions": "",
+            "ssiAllYear": "",
+            "ssiMonthlyAmount": "",
+            "ssiBenefitsYTD": "",
+            "pensionEachPayment": "",
+            "contributeToCafeteriaPlan": "",
+            "cafeteriaPlanPayPeriodAmount": "",
+            "cafeteriaPlanYTDAmount": "",
+            "annualSalary": "",
+            "hourlyPayStatements": [
+              ""
+            ],
+            "contributionsAndBonuses": {
+              "retirement": {
+                "checked": false,
+                "info": [
+                  {
+                    "amount": "",
+                    "amountYTD": ""
+                  }
+                ]
+              },
+              "cafeteriaPlan": {
+                "checked": false,
+                "info": [
+                  {
+                    "amount": "",
+                    "amountYTD": ""
+                  }
+                ]
+              },
+              "bonusFuture": {
+                "checked": false,
+                "info": [
+                  {
+                    "amount": "",
+                    "employerWillWithhold": []
+                  }
+                ]
+              },
+              "bonusPast": {
+                "checked": false,
+                "info": [
+                  {
+                    "amount": ""
+                  }
+                ]
+              }
+            },
+            "noContributions": []
+          },
+          {
+            "incomeType": "salary",
+            "timePeriodOfJob": "allYear",
+            "dateRange": {
+              "startDate": "",
+              "endDate": ""
+            },
+            "payFrequency": "monthly",
+            "dateLastPayPeriod": "10/14/2021",
+            "wagesPerPayPeriod": "0",
+            "wagesYTD": "40000",
+            "isIncomeAmountCorrect": "yes",
+            "correctedWages": "",
+            "taxesPerPayPeriod": "800",
+            "taxesYTD": "3000",
+            "hourlyWage": "",
+            "hours": "",
+            "payStatementOptions": "",
+            "ssiAllYear": "",
+            "ssiMonthlyAmount": "",
+            "ssiBenefitsYTD": "",
+            "pensionEachPayment": "",
+            "contributeToCafeteriaPlan": "",
+            "cafeteriaPlanPayPeriodAmount": "",
+            "cafeteriaPlanYTDAmount": "",
+            "annualSalary": "",
+            "hourlyPayStatements": [
+              ""
+            ],
+            "contributionsAndBonuses": {
+              "retirement": {
+                "checked": false,
+                "info": [
+                  {
+                    "amount": ""
+                  }
+                ]
+              },
+              "cafeteriaPlan": {
+                "checked": false,
+                "info": [
+                  {
+                    "amount": ""
+                  }
+                ]
+              },
+              "bonusFuture": {
+                "checked": false,
+                "info": [
+                  {
+                    "employerWillWithhold": [],
+                    "amount": ""
+                  }
+                ]
+              },
+              "bonusPast": {
+                "checked": false,
+                "info": [
+                  {
+                    "amount": ""
+                  }
+                ]
+              }
+            },
+            "noContributions": []
+          }
+        ],
+        "otherIncome": {
+          "scholarship": {
+            "checked": true,
+            "info": [
+              {
+                "amount": "1000",
+                "taxes": ""
+              }
+            ]
+          },
+          "unemployment": {
+            "checked": false,
+            "info": [
+              {
+                "amount": "",
+                "taxes": ""
+              }
+            ]
+          },
+          "selfEmployment": {
+            "checked": false,
+            "info": [
+              {
+                "amount": "",
+                "taxes": ""
+              }
+            ]
+          },
+          "investments": {
+            "checked": false,
+            "info": [
+              {
+                "amount": "",
+                "taxes": ""
+              }
+            ]
+          },
+          "otherTaxableIncome": {
+            "checked": true,
+            "info": [
+              {
+                "amount": "1000",
+                "taxes": ""
+              }
+            ]
+          },
+          "otherTaxes": {
+            "checked": false,
+            "info": [
+              {
+                "amount": "",
+                "taxes": ""
+              }
+            ]
+          },
+          "plannedEstimatedTaxPayments": {
+            "checked": false,
+            "info": [
+              {
+                "amount": ""
+              }
+            ]
+          }
+        },
+        "noOtherIncome": []
+      },
+      "helpTips": {
+        "jobs.0.incomeType": {
+          "key": "tt-incomeType-1",
+          "id": "incomeTypeTT",
+          "open": false
+        },
+        "jobs.0.dateRange": {
+          "key": "tt-dateRange-1",
+          "id": "dateRangeTT",
+          "open": false
+        },
+        "jobs.0.payFrequency": {
+          "key": "tt-payFrequency-1",
+          "id": "payFrequencyTT",
+          "open": false
+        },
+        "jobs.0.taxesPerPayPeriod": {
+          "key": "tt-taxesPerPayPeriod-1",
+          "id": "taxesPerPayPeriodTT",
+          "open": false
+        },
+        "jobs.0.ssiBenefitsYTD": {
+          "key": "tt-ssiBenefitsYTD-1",
+          "id": "ssiBenefitsYTDTT",
+          "open": false
+        },
+        "jobs.0.contributeToCafeteriaPlan": {
+          "key": "tt-contributeToCafeteriaPlan-1",
+          "id": "contributeToCafeteriaPlanTT",
+          "open": false
+        },
+        "jobs.0.cafeteriaPlanPayPeriodAmount": {
+          "key": "tt-cafeteriaPlanPayPeriodAmount-1",
+          "id": "cafeteriaPlanPayPeriodAmountTT",
+          "open": false
+        },
+        "jobs.0.cafeteriaPlanYTDAmount": {
+          "key": "tt-cafeteriaPlanYTDAmount-1",
+          "id": "cafeteriaPlanYTDAmountTT",
+          "open": false
+        },
+        "jobs.0.annualSalary": {
+          "key": "tt-annualSalary-1",
+          "id": "annualSalaryTT",
+          "open": false
+        },
+        "jobs.0.wagesYTD": {
+          "key": "tt-wagesYTD-1",
+          "id": "wagesYTDTT",
+          "open": false
+        },
+        "jobs.0.ssiMonthlyAmount": {
+          "key": "tt-ssiMonthlyAmount-1",
+          "id": "ssiMonthlyAmountTT",
+          "open": false
+        },
+        "jobs.0.contributionsAndBonuses.retirement.checked": {
+          "key": "tt-incomeType-1",
+          "id": "retirement",
+          "open": false
+        },
+        "jobs.0.contributionsAndBonuses.cafeteriaPlan.checked": {
+          "key": "tt-incomeType-1",
+          "id": "cafeteriaPlan",
+          "open": false
+        },
+        "jobs.0.contributionsAndBonuses.bonusFuture.checked": {
+          "key": "tt-incomeType-1",
+          "id": "bonusFuture",
+          "open": false
+        },
+        "jobs.0.contributionsAndBonuses.bonusPast.checked": {
+          "key": "tt-incomeType-1",
+          "id": "bonusPast",
+          "open": false
+        },
+        "jobs.0.contributionsAndBonuses.ssiBenefitsYTD.checked": {
+          "key": "tt-incomeType-1",
+          "id": "ssiBenefitsYTD",
+          "open": false
+        },
+        "otherIncome.scholarship.checked": {
+          "key": "tt-incomeType-1",
+          "id": "scholarship",
+          "open": false
+        },
+        "otherIncome.selfEmployment.checked": {
+          "key": "tt-incomeType-1",
+          "id": "selfEmployment",
+          "open": false
+        },
+        "otherIncome.investments.checked": {
+          "key": "tt-incomeType-1",
+          "id": "investments",
+          "open": false
+        },
+        "otherIncome.otherTaxableIncome.checked": {
+          "key": "tt-incomeType-1",
+          "id": "otherTaxableIncome",
+          "open": false
+        },
+        "otherIncome.otherTaxes.checked": {
+          "key": "tt-incomeType-1",
+          "id": "otherTaxes",
+          "open": false
+        },
+        "jobs.1.incomeType": {
+          "key": "tt-incomeType-1",
+          "id": "incomeTypeTT",
+          "open": false
+        },
+        "jobs.1.dateRange": {
+          "key": "tt-dateRange-1",
+          "id": "dateRangeTT",
+          "open": false
+        },
+        "jobs.1.payFrequency": {
+          "key": "tt-payFrequency-1",
+          "id": "payFrequencyTT",
+          "open": false
+        },
+        "jobs.1.taxesPerPayPeriod": {
+          "key": "tt-taxesPerPayPeriod-1",
+          "id": "taxesPerPayPeriodTT",
+          "open": false
+        },
+        "jobs.1.ssiBenefitsYTD": {
+          "key": "tt-ssiBenefitsYTD-1",
+          "id": "ssiBenefitsYTDTT",
+          "open": false
+        },
+        "jobs.1.contributeToCafeteriaPlan": {
+          "key": "tt-contributeToCafeteriaPlan-1",
+          "id": "contributeToCafeteriaPlanTT",
+          "open": false
+        },
+        "jobs.1.cafeteriaPlanPayPeriodAmount": {
+          "key": "tt-cafeteriaPlanPayPeriodAmount-1",
+          "id": "cafeteriaPlanPayPeriodAmountTT",
+          "open": false
+        },
+        "jobs.1.cafeteriaPlanYTDAmount": {
+          "key": "tt-cafeteriaPlanYTDAmount-1",
+          "id": "cafeteriaPlanYTDAmountTT",
+          "open": false
+        },
+        "jobs.1.annualSalary": {
+          "key": "tt-annualSalary-1",
+          "id": "annualSalaryTT",
+          "open": false
+        },
+        "jobs.1.wagesYTD": {
+          "key": "tt-wagesYTD-1",
+          "id": "wagesYTDTT",
+          "open": false
+        },
+        "jobs.1.ssiMonthlyAmount": {
+          "key": "tt-ssiMonthlyAmount-1",
+          "id": "ssiMonthlyAmountTT",
+          "open": false
+        },
+        "jobs.1.contributionsAndBonuses.retirement.checked": {
+          "key": "tt-incomeType-1",
+          "id": "retirement",
+          "open": false
+        },
+        "jobs.1.contributionsAndBonuses.cafeteriaPlan.checked": {
+          "key": "tt-incomeType-1",
+          "id": "cafeteriaPlan",
+          "open": false
+        },
+        "jobs.1.contributionsAndBonuses.bonusFuture.checked": {
+          "key": "tt-incomeType-1",
+          "id": "bonusFuture",
+          "open": false
+        },
+        "jobs.1.contributionsAndBonuses.bonusPast.checked": {
+          "key": "tt-incomeType-1",
+          "id": "bonusPast",
+          "open": false
+        }
+      }
+    },
+    "adjustments": {
+      "completed": true,
+      "stepIndicatorTitle": "global.a.adjustments",
+      "stepIndicatorRoute": "adjustments",
+      "values": {
+        "adjustments": {
+          "seHealthInsurance": {
+            "checked": false,
+            "info": [
+              {
+                "amount": ""
+              }
+            ]
+          },
+          "sepSimple": {
+            "checked": false,
+            "info": [
+              {
+                "amount": ""
+              }
+            ]
+          },
+          "seHealthInsuranceSpouse": {
+            "checked": false,
+            "info": [
+              {
+                "amount": ""
+              }
+            ]
+          },
+          "sepSimpleSpouse": {
+            "checked": false,
+            "info": [
+              {
+                "amount": ""
+              }
+            ]
+          },
+          "studentLoan": {
+            "checked": true,
+            "info": [
+              {
+                "amount": "2501"
+              }
+            ]
+          },
+          "educator": {
+            "checked": true,
+            "info": [
+              {
+                "amount": "251"
+              }
+            ]
+          },
+          "ira": {
+            "checked": false,
+            "info": [
+              {
+                "amount": ""
+              }
+            ]
+          },
+          "hsa": {
+            "checked": false,
+            "info": [
+              {
+                "amount": ""
+              }
+            ]
+          },
+          "moving": {
+            "checked": false,
+            "info": [
+              {
+                "amount": ""
+              }
+            ]
+          },
+          "alimony": {
+            "checked": true,
+            "info": [
+              {
+                "amount": "100"
+              }
+            ]
+          },
+          "earlyWithdrawal": {
+            "checked": true,
+            "info": [
+              {
+                "amount": "100"
+              }
+            ]
+          },
+          "business": {
+            "checked": false,
+            "info": [
+              {
+                "amount": ""
+              }
+            ]
+          }
+        },
+        "adjustmentsTotal": 2952
+      },
+      "helpTips": {
+        "adjustments.seHealthInsurance.checked": {
+          "key": "tt-adjustments.seHealthInsurance.checked-1",
+          "id": "adjustments.seHealthInsurance.checked",
+          "open": false
+        },
+        "adjustments.sepSimple.checked": {
+          "key": "tt-adjustments.sepSimple.checked-1",
+          "id": "adjustments.sepSimple.checked",
+          "open": false
+        },
+        "adjustments.seHealthInsuranceSpouse.checked": {
+          "key": "tt-adjustments.seHealthInsuranceSpouse.checked-1",
+          "id": "adjustments.seHealthInsuranceSpouse.checked",
+          "open": false
+        },
+        "adjustments.sepSimpleSpouse.checked": {
+          "key": "tt-adjustments.sepSimpleSpouse.checked-1",
+          "id": "adjustments.sepSimpleSpouse.checked",
+          "open": false
+        },
+        "adjustments.studentLoan.checked": {
+          "key": "tt-adjustments.studentLoan.checked-1",
+          "id": "adjustments.studentLoan.checked",
+          "open": false
+        },
+        "adjustments.educator.checked": {
+          "key": "tt-adjustments.educator.checked-1",
+          "id": "adjustments.educator.checked",
+          "open": false
+        },
+        "adjustments.ira.checked": {
+          "key": "tt-adjustments.ira.checked-1",
+          "id": "adjustments.ira.checked",
+          "open": false
+        },
+        "adjustments.hsa.checked": {
+          "key": "tt-adjustments.hsa.checked-1",
+          "id": "adjustments.hsa.checked",
+          "open": false
+        },
+        "adjustments.moving.checked": {
+          "key": "tt-adjustments.moving.checked-1",
+          "id": "adjustments.moving.checked",
+          "open": false
+        },
+        "adjustments.alimony.checked": {
+          "key": "tt-adjustments.alimony.checked-1",
+          "id": "adjustments.alimony.checked",
+          "open": false
+        },
+        "adjustments.earlyWithdrawal.checked": {
+          "key": "tt-adjustments.earlyWithdrawal.checked-1",
+          "id": "adjustments.earlyWithdrawal.checked",
+          "open": false
+        },
+        "adjustments.business.checked": {
+          "key": "tt-adjustments.business.checked-1",
+          "id": "adjustments.business.checked",
+          "open": false
+        }
+      }
+    },
+    "deductions": {
+      "completed": true,
+      "stepIndicatorTitle": "global.a.deductions",
+      "stepIndicatorRoute": "deductions",
+      "values": {
+        "deductions": "itemizedDeduction",
+        "deductionPayments": {
+          "medical": {
+            "checked": false,
+            "info": [
+              {
+                "amount": ""
+              }
+            ]
+          },
+          "paid": {
+            "checked": true,
+            "info": [
+              {
+                "amount": "15000"
+              }
+            ]
+          },
+          "qualified": {
+            "checked": true,
+            "info": [
+              {
+                "amount": "15000"
+              }
+            ]
+          },
+          "charity": {
+            "checked": true,
+            "info": [
+              {
+                "amount": "15000"
+              }
+            ]
+          },
+          "casualty": {
+            "checked": false,
+            "info": [
+              {
+                "amount": ""
+              }
+            ]
+          },
+          "other": {
+            "checked": false,
+            "info": [
+              {
+                "amount": ""
+              }
+            ]
+          }
+        },
+        "deductionPaymentsDisabled": {
+          "medical": {
+            "checked": false,
+            "info": [
+              {
+                "amount": ""
+              }
+            ]
+          },
+          "paid": {
+            "checked": false,
+            "info": [
+              {
+                "amount": ""
+              }
+            ]
+          },
+          "qualified": {
+            "checked": false,
+            "info": [
+              {
+                "amount": ""
+              }
+            ]
+          },
+          "charity": {
+            "checked": false,
+            "info": [
+              {
+                "amount": ""
+              }
+            ]
+          },
+          "casualty": {
+            "checked": false,
+            "info": [
+              {
+                "amount": ""
+              }
+            ]
+          },
+          "other": {
+            "checked": false,
+            "info": [
+              {
+                "amount": ""
+              }
+            ]
+          }
+        },
+        "itemizedCalculations": [],
+        "itemizedCalculationsDisabled": [],
+        "deductionsTotal": 45000
+      },
+      "helpTips": {
+        "deductions": {
+          "key": "tt-deductions-1",
+          "id": "deductions",
+          "open": false
+        },
+        "deductionPayments.medical.checked": {
+          "key": "tt-deductionPayments.medical.checked-1",
+          "id": "deductionPayments.medical.checked",
+          "open": false
+        },
+        "deductionPayments.paid.checked": {
+          "key": "tt-deductionPayments.paid.checked-1",
+          "id": "deductionPayments.paid.checked",
+          "open": false
+        },
+        "deductionPayments.qualified.checked": {
+          "key": "tt-deductionPayments.qualified.checked-1",
+          "id": "deductionPayments.qualified.checked",
+          "open": false
+        },
+        "deductionPayments.charity.checked": {
+          "key": "tt-deductionPayments.charity.checked-1",
+          "id": "deductionPayments.charity.checked",
+          "open": false
+        },
+        "deductionPayments.casualty.checked": {
+          "key": "tt-deductionPayments.casualty.checked-1",
+          "id": "deductionPayments.casualty.checked",
+          "open": false
+        },
+        "deductionPayments.other.checked": {
+          "key": "tt-deductionPayments.other.checked-1",
+          "id": "deductionPayments.other.checked",
+          "open": false
+        }
+      }
+    },
+    "taxCredits": {
+      "completed": true,
+      "stepIndicatorTitle": "global.a.taxCredits",
+      "stepIndicatorRoute": "taxCredits",
+      "accordionOpenArr": [
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "values": {
+        "childrenAges": [
+          "5",
+          "11"
+        ],
+        "numOfChildDependentCareQC": 2,
+        "childDependentCareAmount": "",
+        "numOfEitcQC": 0,
+        "adoptionCreditAmount": "",
+        "foreignTaxCredit": "",
+        "numOfStudents": 0,
+        "aotc": "",
+        "llc": "",
+        "retirementSavingsCredit": "",
+        "homeOwnerTaxCredit": "",
+        "homeOwnerMortgageTaxCredit": "",
+        "elderlyTaxCredit": "",
+        "businessCredit": "",
+        "alternativeMinimumCredit": "",
+        "energyMotorVehicleTaxCredit": "",
+        "energyRefuelingTaxCredit": "",
+        "energyPlugInTaxCredit": ""
+      },
+      "helpTips": {
+        "childrenAges[0]": {
+          "key": "tt-childrenAges[0]-1",
+          "id": "childrenAges[0]TT",
+          "open": false
+        },
+        "childrenAges[1]": {
+          "key": "tt-childrenAges[1]-1",
+          "id": "childrenAges[1]TT",
+          "open": false
+        },
+        "childrenAges[2]": {
+          "key": "tt-childrenAges[2]-1",
+          "id": "childrenAges[2]TT",
+          "open": false
+        },
+        "childrenAges[3]": {
+          "key": "tt-childrenAges[3]-1",
+          "id": "childrenAges[3]TT",
+          "open": false
+        },
+        "childrenAges[4]": {
+          "key": "tt-childrenAges[4]-1",
+          "id": "childrenAges[4]TT",
+          "open": false
+        },
+        "childrenAges[5]": {
+          "key": "tt-childrenAges[5]-1",
+          "id": "childrenAges[5]TT",
+          "open": false
+        },
+        "childrenAges[6]": {
+          "key": "tt-childrenAges[6]-1",
+          "id": "childrenAges[6]TT",
+          "open": false
+        },
+        "childrenAges[7]": {
+          "key": "tt-childrenAges[7]-1",
+          "id": "childrenAges[7]TT",
+          "open": false
+        },
+        "childrenAges[8]": {
+          "key": "tt-childrenAges[8]-1",
+          "id": "childrenAges[8]TT",
+          "open": false
+        },
+        "childrenAges[9]": {
+          "key": "tt-childrenAges[9]-1",
+          "id": "childrenAges[9]TT",
+          "open": false
+        },
+        "numOfChildDependentCareQC": {
+          "key": "tt-numOfChildDependentCareQC-1",
+          "id": "numOfChildDependentCareQCTT",
+          "open": false
+        },
+        "childDependentCareAmount": {
+          "key": "tt-childDependentCareAmount-1",
+          "id": "childDependentCareAmountTT",
+          "open": false
+        },
+        "numOfEitcQC": {
+          "key": "tt-numOfEitcQC-1",
+          "id": "numOfEitcQCTT",
+          "open": false
+        },
+        "adoptionCreditAmount": {
+          "key": "tt-adoptionCreditAmount-1",
+          "id": "adoptionCreditAmountTT",
+          "open": false
+        },
+        "foreignTaxCredit": {
+          "key": "tt-foreignTaxCredit-1",
+          "id": "foreignTaxCreditTT",
+          "open": false
+        },
+        "aotc": {
+          "key": "tt-aotc-1",
+          "id": "aotcTT",
+          "open": false
+        },
+        "llc": {
+          "key": "tt-llc-1",
+          "id": "llcTT",
+          "open": false
+        },
+        "retirementSavingsCredit": {
+          "key": "tt-retirementSavingsCredit-1",
+          "id": "retirementSavingsCreditTT",
+          "open": false
+        },
+        "homeOwnerTaxCredit": {
+          "key": "tt-homeOwnerTaxCredit-1",
+          "id": "homeOwnerTaxCreditTT",
+          "open": false
+        },
+        "homeOwnerMortgageTaxCredit": {
+          "key": "tt-homeOwnerMortgageTaxCredit-1",
+          "id": "homeOwnerMortgageTaxCreditTT",
+          "open": false
+        },
+        "elderlyTaxCredit": {
+          "key": "tt-elderlyTaxCredit-1",
+          "id": "elderlyTaxCreditTT",
+          "open": false
+        },
+        "businessCredit": {
+          "key": "tt-businessCredit-1",
+          "id": "businessCreditTT",
+          "open": false
+        },
+        "alternativeMinimumCredit": {
+          "key": "tt-alternativeMinimumCredit-1",
+          "id": "alternativeMinimumCreditTT",
+          "open": false
+        },
+        "energyMotorVehicleTaxCredit": {
+          "key": "tt-energyMotorVehicleTaxCredit-1",
+          "id": "energyMotorVehicleTaxCreditTT",
+          "open": false
+        },
+        "energyRefuelingTaxCredit": {
+          "key": "tt-energyRefuelingTaxCredit-1",
+          "id": "energyRefuelingTaxCreditTT",
+          "open": false
+        },
+        "energyPlugInTaxCredit": {
+          "key": "tt-energyPlugInTaxCredit-1",
+          "id": "energyPlugInTaxCreditTT",
+          "open": false
+        }
+      }
+    },
+    "results": {
+      "completed": false,
+      "stepIndicatorTitle": "global.a.results",
+      "stepIndicatorRoute": "results",
+      "accordionOpenArr": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "helpTips": {
+        "results": {
+          "key": "tt-results-1",
+          "id": "resultsTT",
+          "open": false
+        }
+      }
+    }
+  },
+  "slider": {
+    "value": 0
+  },
+  "env": {
+    "dev": {
+      "gaCode": "UA-22588183-3",
+      "w4Link": "https://twe-frontend-w4-dev.s3-us-gov-west-1.amazonaws.com/fw4.pdf",
+      "w4pLink": "https://twe-frontend-w4-dev.s3-us-gov-west-1.amazonaws.com/fw4p.pdf",
+      "pdfParamsURL": "https://twe-frontend-w4-dev.s3-us-gov-west-1.amazonaws.com/pdfParams.json",
+      "currentRatesParamsURL": "https://twe-frontend-w4-dev.s3-us-gov-west-1.amazonaws.com/currentRatesParams.json",
+      "futureRatesParamsURL": "https://twe-frontend-w4-dev.s3-us-gov-west-1.amazonaws.com/futureRatesParams.json"
+    },
+    "sit": {
+      "gaCode": "UA-22588183-3",
+      "w4Link": "https://twe-frontend-w4-sit.s3-us-gov-west-1.amazonaws.com/fw4.pdf",
+      "w4pLink": "https://twe-frontend-w4-sit.s3-us-gov-west-1.amazonaws.com/fw4p.pdf",
+      "pdfParamsURL": "https://twe-frontend-w4-sit.s3-us-gov-west-1.amazonaws.com/pdfParams.json",
+      "currentRatesParamsURL": "https://twe-frontend-w4-sit.s3-us-gov-west-1.amazonaws.com/currentRatesParams.json",
+      "futureRatesParamsURL": "https://twe-frontend-w4-sit.s3-us-gov-west-1.amazonaws.com/futureRatesParams.json"
+    },
+    "eite": {
+      "gaCode": "UA-22588183-3",
+      "w4Link": "https://twe-frontend-w4-eite.s3-us-gov-west-1.amazonaws.com/fw4.pdf",
+      "w4pLink": "https://twe-frontend-w4-eite.s3-us-gov-west-1.amazonaws.com/fw4p.pdf",
+      "pdfParamsURL": "https://twe-frontend-w4-eite.s3-us-gov-west-1.amazonaws.com/pdfParams.json",
+      "currentRatesParamsURL": "https://twe-frontend-w4-eite.s3-us-gov-west-1.amazonaws.com/currentRatesParams.json",
+      "futureRatesParamsURL": "https://twe-frontend-w4-eite.s3-us-gov-west-1.amazonaws.com/futureRatesParams.json"
+    },
+    "pete": {
+      "gaCode": "UA-22588183-3",
+      "w4Link": "https://cloudapps.perf.irs.gov/fw4.pdf",
+      "w4pLink": "https://cloudapps.perf.irs.gov/fw4p.pdf",
+      "pdfParamsURL": "https://cloudapps.perf.irs.gov/pdfParams.json",
+      "currentRatesParamsURL": "https://cloudapps.perf.irs.gov/currentRatesParams.json",
+      "futureRatesParamsURL": "https://cloudapps.perf.irs.gov/futureRatesParams.json"
+    },
+    "prod": {
+      "gaCode": "UA-22588183-6",
+      "w4Link": "https://apps.irs.gov/fw4.pdf",
+      "w4pLink": "https://apps.irs.gov/fw4p.pdf",
+      "pdfParamsURL": "https://apps.irs.gov/pdfParams.json",
+      "currentRatesParamsURL": "https://apps.irs.gov/currentRatesParams.json",
+      "futureRatesParamsURL": "https://apps.irs.gov/futureRatesParams.json"
+    }
+  }
+}
