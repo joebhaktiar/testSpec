@@ -11,12 +11,11 @@ const formatter = new Intl.NumberFormat('en-US', {
 let rowsLength;
 let columnLength;
 let lastrow;
-//Waiting for Page Load
+
 const cyWait = () => {
   cy.wait(5000);
 }
 
-//Check for not null check box
 let checkForNullValue = (dataValue, customFunction, falseCase) => {
   const datatype = typeof dataValue;
   let notnullFlag = false;
@@ -38,7 +37,6 @@ let checkForNullValue = (dataValue, customFunction, falseCase) => {
   }
 }
 
-//Current Formated Date Excel Result
 const getFileName = () => {
   const date = new Date();
   const year = date.getFullYear(),
