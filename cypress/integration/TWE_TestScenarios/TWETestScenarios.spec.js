@@ -305,7 +305,7 @@ describe('Test Scenarios Comparison', () => {
           //   })
           // })
 
-          // Unimplemented Old Code Below
+          // Old Code Below - Not implemented
 
           //       // hourly
           //       else if (data.rows[i].incomeType1 == 'hourly') {
@@ -856,7 +856,6 @@ describe('Test Scenarios Comparison', () => {
 
           /* generate an XLSX file */
           XLSX.writeFile(wb, getFileName());
-
         })
       })
     })
