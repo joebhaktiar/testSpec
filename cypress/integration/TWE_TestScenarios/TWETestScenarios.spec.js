@@ -11,6 +11,49 @@ const formatter = new Intl.NumberFormat('en-US', {
 let rowsLength;
 let columnLength;
 let lastrow;
+//Waiting for Page Load
+const cyWait = () => {
+  cy.wait(5000);
+}
+
+//Check for not null check box
+let checkForNullValue = (dataValue, customFunction, falseCase) => {
+  const datatype = typeof dataValue;
+  let notnullFlag = false;
+  if (datatype === 'object') {
+    dataValue.forEach(element => {
+      if (element !== null && element !== undefined && element !== '') {
+        notnullFlag = true;
+      }
+    });
+  }
+  else if (dataValue !== null && dataValue !== undefined && dataValue !== '') {
+    notnullFlag = true;
+  }
+  if (notnullFlag) {
+    customFunction();
+  }
+  else if (falseCase !== undefined) {
+    falseCase();
+  }
+}
+
+//Current Formated Date Excel Result
+const getFileName = () => {
+  const date = new Date();
+  const year = date.getFullYear(),
+    month = date.getMonth() + 1, // months are zero indexed
+    day = date.getDate(),
+    hour = date.getHours(),
+    minute = date.getMinutes(),
+    second = date.getSeconds(),
+    monthFormatted = month < 10 ? "0" + month : month,
+    dayFormatted = day < 10 ? "0" + day : day,
+    hourFormatted = hour < 10 ? "0" + hour : hour,
+    minuteFormatted = minute < 10 ? "0" + minute : minute;
+  return `${year}-${monthFormatted}-${dayFormatted}-${hourFormatted}-${minuteFormatted}-${second}-results.xlsx`;
+
+}
 
 describe('Test Scenarios Comparison', () => {
   // eslint-disable-next-line no-undef
@@ -43,7 +86,7 @@ describe('Test Scenarios Comparison', () => {
           // Date
           cy.clock(Date.UTC(2022, 11, 1), ['Date'])
 
-          cy.get(`[data-testid="filingStatus-${data.rows[i].FilingStatus}"]`).click()
+          cy.get(`[data-testid="filingStatus-${data.rows[i].FilingStatus}"]`).click();
           cy.get('[data-testid="jobOrPension-yes"]').click()
           if (data.rows[i].planToClaimDependents == 'Yes') {
             cy.get('[data-testid=demographicsCheckboxGroup]').click()
@@ -52,9 +95,9 @@ describe('Test Scenarios Comparison', () => {
           cy.get('[data-testid="nextButton"]').click()
           // Income Page
           // for (let n = 0; n < data.rows[i].numberOfJobs; n++) {
-          debugger
           let numOfJobs = data.rows[i].numberOfJobs;
           for (let k = 1; k < numOfJobs; k++) {
+            cyWait();
             cy.get('[data-testid=numOfJobs-plus]').click();
           }
           for (let k = 1; k < numOfJobs; k++) {
@@ -85,37 +128,49 @@ describe('Test Scenarios Comparison', () => {
 
             // Salary
             if (data.rows[i][incomeTypeNum] == 'salary') {
-              cy.get(`[data-testid="incomeType${j - 1}-input-${data.rows[i][incomeTypeNum]}"]`).click();
+
+              cy.get(`[data-testid="incomeType${j - 1}-input-${data.rows[i][incomeTypeNum]}"]`).click()
               // All Year
               if (data.rows[i][timePeriodOfJobNum] == 'allYear') {
-                cy.get(`[data-testid="timePeriodOfJob${j - 1}-input-${data.rows[i][timePeriodOfJobNum]}"]`).click()
-                cy.get(`[data-testid=payFrequency${j - 1}-label]`).should('be.visible').click()
-                cy.get(`[data-testid="payFrequency${j - 1}-input-${data.rows[i][payFrequencyNum]}"]`).click()
-                cy.get(`[data-testid="jobs.${j - 1}.dateLastPayPeriod"]`).type(data.rows[i][recentPayPeriodNum])
-                cy.get(`[data-testid=wagesPerPayPeriod${j - 1}-input]`).type(data.rows[i][wagesPerPeriodNum])
-                cy.get(`[data-testid=wagesYTD${j - 1}-input]`).type(data.rows[i][wagesYTDNum])
 
+                cy.get(`[data-testid="timePeriodOfJob${j - 1}-input-${data.rows[i][timePeriodOfJobNum]}"]`).click()
+
+                cy.get(`[data-testid="payFrequency${j - 1}-input-${data.rows[i][payFrequencyNum]}"]`).click()
+
+                cy.get(`[data-testid="jobs.${j - 1}.dateLastPayPeriod"]`).type(data.rows[i][recentPayPeriodNum])
+
+                cy.get(`[data-testid=wagesPerPayPeriod${j - 1}-input]`).type(data.rows[i][wagesPerPeriodNum])
+
+                cy.get(`[data-testid=wagesYTD${j - 1}-input]`).type(data.rows[i][wagesYTDNum])
                 if (data.rows[i][isThisCorrectNum] == 'no') {
+
                   cy.get(`[data-testid=isIncomeAmountCorrect${j - 1}-input-${data.rows[i][isThisCorrectNum]}]`).click()
+
                   cy.get(`[data-testid=correctedWages${j - 1}-input]`).type(data.rows[i][annualIncomeManualNum])
+
                 }
                 else {
+
                   cy.get(`[data-testid=isIncomeAmountCorrect${j - 1}-input-${data.rows[i][isThisCorrectNum]}]`).click()
                 }
+
                 cy.get(`[data-testid=taxesPerPayPeriod${j - 1}-input]`).type(`${data.rows[i][taxesPerPeriodNum]}`)
+
                 cy.get(`[data-testid=taxesYTD${j - 1}-input]`).type(`${data.rows[i][taxesYTDNum]}`)
+
               }
               // Present
               if (data.rows[i][timePeriodOfJobNum] == 'currentPortion') {
+
                 cy.get(`[data-testid="timePeriodOfJob${j - 1}-input-${data.rows[i][timePeriodOfJobNum]}"]`).click()
                 cy.get(`[data-testid="jobs.${j - 1}.dateRange.startDate"]`).type(data.rows[i][presentStartDateNum])
-                cy.get(`[data-testid="jobs.${j - 1}.dateRange.endDate"]`).type(data.rows[i][presentEndDateNum])
+                cy.get(`[data-testid="jobs.${j - 1}.dateRange.endDate"]`).type(data.rows[i][presentEndDateNum]);
                 cy.get(`[data-testid=dateRange${j - 1}-label]`).click()
-                cy.get(`[data-testid="payFrequency${j - 1}-input-${data.rows[i][payFrequencyNum]}"]`).click()
                 cy.get(`[data-testid="payFrequency${j - 1}-input-${data.rows[i][payFrequencyNum]}"]`).click()
                 cy.get(`[data-testid="jobs.${j - 1}.dateLastPayPeriod"]`).type(data.rows[i][recentPayPeriodNum])
                 cy.get(`[data-testid=wagesPerPayPeriod${j - 1}-input]`).type(data.rows[i][wagesPerPeriodNum])
                 cy.get(`[data-testid=wagesYTD${j - 1}-input]`).type(data.rows[i][wagesYTDNum])
+                cy.get(`[data-testid=taxesYTD${j - 1}-input]`).type(`${data.rows[i][taxesYTDNum]}`)
 
                 if (data.rows[i][isThisCorrectNum] == 'no') {
                   cy.get(`[data-testid=isIncomeAmountCorrect${j - 1}-input-${data.rows[i][isThisCorrectNum]}]`).click()
@@ -127,8 +182,10 @@ describe('Test Scenarios Comparison', () => {
                 cy.get(`[data-testid=taxesPerPayPeriod${j - 1}-input]`).type(`${data.rows[i][taxesPerPeriodNum]}`)
                 cy.get(`[data-testid=taxesYTD${j - 1}-input]`).type(`${data.rows[i][taxesYTDNum]}`)
               }
+
               // Past
               if (data.rows[i][timePeriodOfJobNum] == 'past') {
+
                 cy.get(`[data-testid=incomeType${j - 1}-input-${data.rows[i][incomeTypeNum]}]`).last().click()
                 cy.get(`[data-testid=timePeriodOfJob${j - 1}-input-${data.rows[i][timePeriodOfJobNum]}]`).last().click()
                 cy.get(`[data-testid="jobs.${j - 1}.dateRange.startDate"]`).type(data.rows[i][pastStardDateNum])
@@ -139,26 +196,29 @@ describe('Test Scenarios Comparison', () => {
               }
               // Future
               if (data.rows[i][timePeriodOfJobNum] == 'future') {
+
                 cy.get(`[data-testid=incomeType${j - 1}-input-${data.rows[i][incomeTypeNum]}]`).last().click()
                 cy.get(`[data-testid=timePeriodOfJob${j - 1}-input-${data.rows[i][timePeriodOfJobNum]}]`).last().click()
                 cy.get(`[data-testid="jobs.${j - 1}.dateRange.startDate"]`).type(data.rows[i][futureStartDateNum])
                 cy.get(`[data-testid="jobs.${j - 1}.dateRange.endDate"]`).type(data.rows[i][futureEndDateNum])
                 cy.get(`[data-testid=dateRange${j - 1}-label]`).click()
-                cy.get(`[data-testid=payFrequency${j - 1}-input-${data.rows[i][payFrequencyNum]}]`).click()
-                cy.get(`[data-testid=payFrequency${j - 1}-input-${data.rows[i][payFrequencyNum]}]`).click()
+                checkForNullValue(data.rows[i][payFrequencyNum], () => {
+                  cy.get(`[data-testid="payFrequency${j - 1}-input-${data.rows[i][payFrequencyNum]}"]`).click()
+                })
                 cy.get(`[data-testid=annualSalary${j - 1}-input]`).type(data.rows[i][wagesYTDNum])
+
                 if (data.rows[i][isThisCorrectNum] == 'no') {
                   cy.get(`[data-testid=isIncomeAmountCorrect${j - 1}-input-${data.rows[i][isThisCorrectNum]}]`).click()
-                  cy.get(`[data-testid=isIncomeAmountCorrect${j - 1}-input-${data.rows[i][isThisCorrectNum]}]`).click()
                   cy.get(`[data-testid=correctedWages${j - 1}-input]`).last().type(data.rows[i][annualIncomeManualNum])
-                } else {
-                  cy.get(`[data-testid=isIncomeAmountCorrect${j - 1}-input-${data.rows[i][isThisCorrectNum]}]`).click()
+                }
+                else {
                   cy.get(`[data-testid=isIncomeAmountCorrect${j - 1}-input-${data.rows[i][isThisCorrectNum]}]`).click()
                 }
               }
             }
             // Social Security Income
             else if (data.rows[i][incomeTypeNum] == 'ssi') {
+
               cy.get(`[data-testid=incomeType${j}-input-ssi]`).click()
               // cy.get(`[data-testid=ssiAllYear${j}-label]`).click()
               cy.get(`[data-testid=ssiAllYear${j}-input-yes]`).click()
@@ -166,6 +226,7 @@ describe('Test Scenarios Comparison', () => {
               cy.get(`[data-testid=taxesYTD${j}-input]`).type(data.rows[i][ssiFederalIncomeTaxesWithheldYTD])
               cy.get(`[data-testid=taxesPerPayPeriod${j}-input]`).type(data.rows[i][ssiTotalFederalIncomWithheldPP])
             }
+
             // hourly - Not implemented yet
             // else if (data.rows[i][incomeTypeNum] == 'hourly') {
             //   cy.get(`[data-testid="incomeType${j - 1}-input-${data.rows[i][incomeTypeNum]}"]`).click();
@@ -309,7 +370,6 @@ describe('Test Scenarios Comparison', () => {
           for (let j = 0; j < numOfJobs; j++) {
             if (data.rows[i][`incomeType${j + 1}`] == 'salary' || data.rows[i][`incomeType${j + 1}`] == 'hourly') {
               // 401K
-              // cy.get('[for="jobs.1.contributionsAndBonuses"]').click()
               cy.get(`[data-testid="jobs.${[j]}.contributionsAndBonuses.retirement.checked"]`).click()
               if (data.rows[i][`timePeriodOfJob${j + 1}`] !== 'past') {
                 cy.get(`[data-testid=retirement${[j]}-0-input]`).type(data.rows[i][`401kPPP${j + 1}`])
@@ -342,66 +402,100 @@ describe('Test Scenarios Comparison', () => {
             }
           }
           // Other Income
-          cy.get('[data-testid="otherIncome.scholarship.checked"]').click()
-          cy.get('[data-testid=scholarship0-input]').eq(0).type(data.rows[i].scholarship)
-          cy.get('[data-testid=scholarship0-input]').eq(1).type(data.rows[i].scholarshipTaxes)
-          cy.get('[data-testid="otherIncome.unemployment.checked"]').click()
-          cy.get('[data-testid=unemployment0-input]').eq(0).type(data.rows[i].unemployment)
-          cy.get('[data-testid=unemployment0-input]').eq(1).type(data.rows[i].unemploymentTaxes)
-          cy.get('[data-testid="otherIncome.selfEmployment.checked"]').click()
-          cy.get('[data-testid=selfEmployment0-input]').eq(0).type(data.rows[i].selfEmployment)
-          cy.get('[data-testid=selfEmployment0-input]').eq(1).type(data.rows[i].selfEmploymentTaxes)
-          cy.get('[data-testid="otherIncome.investments.checked"]').click()
-          cy.get('[data-testid=investments0-input]').eq(0).type(data.rows[i].investments)
-          cy.get('[data-testid=investments0-input]').eq(1).type(data.rows[i].investmentsTaxes)
-          cy.get('[data-testid="otherIncome.otherTaxableIncome.checked"]').click()
-          cy.get('[data-testid=otherTaxableIncome0-input]').eq(0).type(data.rows[i].otherTaxableIncome)
-          cy.get('[data-testid="otherIncome.otherTaxes.checked"]').click()
-          cy.get('[data-testid=otherTaxes0-input]').eq(0).type(data.rows[i].otherTaxes)
+          checkForNullValue([data.rows[i].scholarship, data.rows[i].scholarshipTaxes], () => {
+            cy.get('[data-testid="otherIncome.scholarship.checked"]').click()
+            cy.get('[data-testid=scholarship0-input]').eq(0).type(data.rows[i].scholarship)
+            cy.get('[data-testid=scholarship0-input]').eq(1).type(data.rows[i].scholarshipTaxes)
+          })
+          checkForNullValue([data.rows[i].unemployment, data.rows[i].unemploymentTaxes], () => {
+            cy.get('[data-testid="otherIncome.unemployment.checked"]').click()
+            cy.get('[data-testid=unemployment0-input]').eq(0).type(data.rows[i].unemployment)
+            cy.get('[data-testid=unemployment0-input]').eq(1).type(data.rows[i].unemploymentTaxes)
+          })
+          checkForNullValue([data.rows[i].selfEmployment, data.rows[i].selfEmploymentTaxes], () => {
+            cy.get('[data-testid="otherIncome.selfEmployment.checked"]').click()
+            cy.get('[data-testid=selfEmployment0-input]').eq(0).type(data.rows[i].selfEmployment)
+            cy.get('[data-testid=selfEmployment0-input]').eq(1).type(data.rows[i].selfEmploymentTaxes)
+          })
+          checkForNullValue([data.rows[i].investments, data.rows[i].investmentsTaxes], () => {
+            cy.get('[data-testid="otherIncome.investments.checked"]').click()
+            cy.get('[data-testid=investments0-input]').eq(0).type(data.rows[i].investments)
+            cy.get('[data-testid=investments0-input]').eq(1).type(data.rows[i].investmentsTaxes)
+          })
+
+          checkForNullValue(data.rows[i].otherTaxableIncome, () => {
+            cy.get('[data-testid="otherIncome.otherTaxableIncome.checked"]').click()
+            cy.get('[data-testid=otherTaxableIncome0-input]').eq(0).type(data.rows[i].otherTaxableIncome)
+          })
+
+          checkForNullValue(data.rows[i].otherTaxes, () => {
+            cy.get('[data-testid="otherIncome.otherTaxes.checked"]').click()
+            cy.get('[data-testid=otherTaxes0-input]').eq(0).type(data.rows[i].otherTaxes)
+          })
+
           // Next to adjustments
           cy.get('[data-testid="nextButton"]').click()
           cy.waitFor('[data-testid="adjustmentsTitle"]')
+          cyWait();
           cy.get('[data-testid="adjustmentsTitle"]').should('be.visible')
 
           // Adjustments (check which all checkboxes have been checked and expand all checked income types)
-          // Expand all checkboxes
-          cy.get('[data-testid="adjustments.studentLoan.checked"]').click()
-          cy.get('[data-testid=studentLoan0-input]').type(data.rows[i].studentLoan)
+          // Expand all checkboxes if values present
+          checkForNullValue(data.rows[i].studentLoan, () => {
+            cy.get('[data-testid="adjustments.studentLoan.checked"]').click()
+            cy.get('[data-testid=studentLoan0-input]').type(data.rows[i].studentLoan)
+          })
 
-          cy.get('[data-testid="adjustments.educator.checked"]').click()
-          cy.get('[data-testid=educator0-input]').type(data.rows[i].educator)
+          checkForNullValue(data.rows[i].educator, () => {
+            cy.get('[data-testid="adjustments.educator.checked"]').click()
+            cy.get('[data-testid=educator0-input]').type(data.rows[i].educator)
+          })
 
-          cy.get('[data-testid="adjustments.ira.checked"]').click()
-          cy.get('[data-testid=ira0-input]').type(data.rows[i].ira)
+          checkForNullValue(data.rows[i].ira, () => {
+            cy.get('[data-testid="adjustments.ira.checked"]').click()
+            cy.get('[data-testid=ira0-input]').type(data.rows[i].ira)
+          })
 
-          cy.get('[data-testid="adjustments.hsa.checked"]').click()
-          cy.get('[data-testid=hsa0-input]').type(data.rows[i].healthSavings)
+          checkForNullValue(data.rows[i].healthSavings, () => {
+            cy.get('[data-testid="adjustments.hsa.checked"]').click()
+            cy.get('[data-testid=hsa0-input]').type(data.rows[i].healthSavings)
+          })
 
-          cy.get('[data-testid="adjustments.moving.checked"]').click()
-          cy.get('[data-testid=moving0-input]').type(data.rows[i].movingMilitary)
+          checkForNullValue(data.rows[i].movingMilitary, () => {
+            cy.get('[data-testid="adjustments.moving.checked"]').click()
+            cy.get('[data-testid=moving0-input]').type(data.rows[i].movingMilitary)
+          })
 
-          cy.get('[data-testid="adjustments.alimony.checked"]').click()
-          cy.get('[data-testid=alimony0-input]').type(data.rows[i].alimonyPaid)
+          checkForNullValue(data.rows[i].alimonyPaid, () => {
+            cy.get('[data-testid="adjustments.alimony.checked"]').click()
+            cy.get('[data-testid=alimony0-input]').type(data.rows[i].alimonyPaid)
+          })
 
-          cy.get('[data-testid="adjustments.earlyWithdrawal.checked"]').click()
-          cy.get('[data-testid=earlyWithdrawal0-input]').type(data.rows[i].earlyWithdrawlSavings)
+          checkForNullValue(data.rows[i].earlyWithdrawlSavings, () => {
+            cy.get('[data-testid="adjustments.earlyWithdrawal.checked"]').click()
+            cy.get('[data-testid=earlyWithdrawal0-input]').type(data.rows[i].earlyWithdrawlSavings)
+          })
 
-          cy.get('[data-testid="adjustments.business.checked"]').click()
-          cy.get('[data-testid=business0-input]').type(data.rows[i].businessCredits)
+          checkForNullValue(data.rows[i].alimonyPaid, () => {
+            cy.get('[data-testid="adjustments.business.checked"]').click()
+            cy.get('[data-testid=business0-input]').type(data.rows[i].businessCredits)
+          })
+
           cy.get('[data-testid=total]').should('have.text', `Adjustments entered: ${formatter.format(data.rows[i].totalAdjustments)}`)
           cy.get('[data-testid=total]').click()
           cy.get('[data-testid="nextButton"]').click()
-          cy.get('[data-testid="deductionsTitle"]').should('be.visible')
+
           // Deductions
+          cyWait();
+          cy.get('[data-testid="deductionsTitle"]').should('be.visible')
           if (data.rows[i].itemize == 'no') {
             cy.get('[data-testid="deductions-standardDeduction"]').click()
-            cy.get('[data-testid="nextButton"]').click()
-            cy.get('[data-testid="taxCreditsTitle"]').should('be.visible')
           } else {
             // Itemized
             cy.get('[data-testid=deductions-input-itemizedDeduction]').click()
             cy.get('[type="checkbox"]').check({ force: true })
             cy.get('[data-testid=itemized]').click()
+
             cy.get('[data-testid=medical0-input]').type(data.rows[i].medical)
             cy.get('[data-testid=paid0-input]').type(data.rows[i].taxes)
             cy.get('[data-testid=qualified0-input]').type(data.rows[i].interestPaid)
@@ -412,21 +506,27 @@ describe('Test Scenarios Comparison', () => {
               cy.get('[data-testid=itemizedTotal]').click()
               cy.get('[data-testid=itemized]').click()
             }
-            cy.get('[data-testid="nextButton"]').click()
-            cy.get('[data-testid="taxCreditsTitle"]').should('be.visible')
           }
-
+          cy.get('[data-testid="nextButton"]').click()
           // Tax Credits
+          cyWait();
+          cy.get('[data-testid="taxCreditsTitle"]').should('be.visible')
+
           if (data.rows[i].planToClaimDependents == 'Yes') {
             cy.get('[data-testid=childrenAges-input]').should('be.visible')
           } else {
             cy.get('[data-testid=childCreditsAccordion-trigger]').click()
           }
           if ((data.rows[i].Child1Age) !== 0) {
+
             cy.get('[data-testid=childrenAges-input]').type(data.rows[i].Child1Age)
-            cy.get('[data-testid=addAnotherButton]').click()
+
             // eslint-disable-next-line max-len
-            cy.get(':nth-child(4) > [data-testid=childrenAges] > div.inline-block > [data-testid=childrenAges-input]').type(data.rows[i].Child2Age)
+            checkForNullValue(data.rows[i].Child2Age, () => {
+              cy.get('[data-testid=addAnotherButton]').click()
+              cy.get(':nth-child(4) > [data-testid=childrenAges] > div.inline-block > [data-testid=childrenAges-input]').type(data.rows[i].Child2Age)
+            })
+
             // Child and Dependent Tax Credit
             for (let j = 0; j < (data.rows[i].qCforCDTC); j++) {
               cy.get('[data-testid=numOfChildDependentCareQC-plus]').click();
@@ -438,38 +538,57 @@ describe('Test Scenarios Comparison', () => {
             cy.get('[data-testid=numOfEitcQC-plus]').click();
           }
           // Adoption Tax Credit Amount
+
           cy.get('[data-testid=adoptionCreditAmount-input]').type(data.rows[i].adoptionTaxCredit)
           cy.get('[data-testid=educationalAccordion-trigger]').click()
+
           cy.get('[data-testid=aotc-input]').type(data.rows[i].AOCCredit)
-          cy.get('[data-testid=llc-input]').type(data.rows[i].LLCCredit)
-          cy.get('[data-testid=llc-input]').click()
-          // cy.wait(1000)
+          checkForNullValue(data.rows[i].LLCCredit, () => {
+            cy.get('[data-testid=llc-input]').type(data.rows[i].LLCCredit)
+            cy.get('[data-testid=llc-input]').click()
+          })
+
           // foreignTaxCredit
-          cy.get('[data-testid=foreignTaxAccordion-trigger]').click()
-          cy.get('[data-testid=foreignTaxCredit-input]').type(data.rows[i].foreignTaxCredit)
+          checkForNullValue(data.rows[i].foreignTaxCredit, () => {
+            cy.get('[data-testid=foreignTaxAccordion-trigger]').click()
+            cy.get('[data-testid=foreignTaxCredit-input]').type(data.rows[i].foreignTaxCredit)
+          })
           // Retirement Savings
-          cy.get('[data-testid=retirementSavingsAccordion-trigger]').click()
-          cy.get('[data-testid=retirementSavingsCredit-input]').type(data.rows[i].retirementSavingsContributions)
+          checkForNullValue(data.rows[i].retirementSavingsContributions, () => {
+            cy.get('[data-testid=retirementSavingsAccordion-trigger]').click()
+            cy.get('[data-testid=retirementSavingsCredit-input]').type(data.rows[i].retirementSavingsContributions)
+          })
           // Homeowner
-          cy.get('[data-testid=homeOwnerTaxAccordion-trigger]').click()
-          cy.get('[data-testid=homeOwnerTaxCredit-input]').type(data.rows[i].residentalEnergyCredit)
-          cy.get('[data-testid=homeOwnerMortgageTaxCredit-input]').type(data.rows[i].mortgageInterestCredit)
+          checkForNullValue([data.rows[i].residentalEnergyCredit, data.rows[i].mortgageInterestCredit], () => {
+            cy.get('[data-testid=homeOwnerTaxAccordion-trigger]').click()
+            cy.get('[data-testid=homeOwnerTaxCredit-input]').type(data.rows[i].residentalEnergyCredit)
+            cy.get('[data-testid=homeOwnerMortgageTaxCredit-input]').type(data.rows[i].mortgageInterestCredit)
+          })
           // Elderly or Disabled
-          cy.get('[data-testid=elderlyTaxAccordion-trigger]').click()
-          cy.get('[data-testid=elderlyTaxCredit-input]').type(data.rows[i].elderOrDisabledCredit)
+          checkForNullValue(data.rows[i].elderOrDisabledCredit, () => {
+            cy.get('[data-testid=elderlyTaxAccordion-trigger]').click()
+            cy.get('[data-testid=elderlyTaxCredit-input]').type(data.rows[i].elderOrDisabledCredit)
+          })
           // Business
-          cy.get('[data-testid=businessAccordion-trigger]').click()
-          cy.get('[data-testid=businessCredit-input]').type(data.rows[i].generalBusinessCredit)
+          checkForNullValue(data.rows[i].generalBusinessCredit, () => {
+            cy.get('[data-testid=businessAccordion-trigger]').click()
+            cy.get('[data-testid=businessCredit-input]').type(data.rows[i].generalBusinessCredit)
+          })
           // Alternative Minimum Credit
-          cy.get('[data-testid=alternativeMinimumCreditAccordion-trigger]').click()
-          cy.get('[data-testid=alternativeMinimumCredit-input]').type(data.rows[i].alternativeMinimumTaxCredit)
+          checkForNullValue(data.rows[i].alternativeMinimumTaxCredit, () => {
+            cy.get('[data-testid=alternativeMinimumCreditAccordion-trigger]').click()
+            cy.get('[data-testid=alternativeMinimumCredit-input]').type(data.rows[i].alternativeMinimumTaxCredit)
+          })
           // Energy Efficient Vehicles
-          cy.get('[data-testid=energyTaxCreditAccordion-trigger]').click()
-          cy.get('[data-testid=energyMotorVehicleTaxCredit-input]').type(data.rows[i].motorVehicleCredit)
-          cy.get('[data-testid=energyRefuelingTaxCredit-input]').type(data.rows[i].energyRefuelingTaxCredit)
-          cy.get('[data-testid=energyPlugInTaxCredit-input]').type(data.rows[i].pluginElectricCredit)
+          checkForNullValue([data.rows[i].motorVehicleCredit, data.rows[i].energyRefuelingTaxCredit, data.rows[i].pluginElectricCredit], () => {
+            cy.get('[data-testid=energyTaxCreditAccordion-trigger]').click()
+            cy.get('[data-testid=energyMotorVehicleTaxCredit-input]').type(data.rows[i].motorVehicleCredit)
+            cy.get('[data-testid=energyRefuelingTaxCredit-input]').type(data.rows[i].energyRefuelingTaxCredit)
+            cy.get('[data-testid=energyPlugInTaxCredit-input]').type(data.rows[i].pluginElectricCredit)
+          })
           // Next button to results
           cy.get('[data-testid="nextButton"]').click()
+          cyWait();
           cy.get('[data-testid=yourResultsTitle]').should('be.visible')
 
 
@@ -738,7 +857,8 @@ describe('Test Scenarios Comparison', () => {
           XLSX.utils.book_append_sheet(wb, ws, 'Results');
 
           /* generate an XLSX file */
-          XLSX.writeFile(wb, 'results.xlsx');
+          XLSX.writeFile(wb, getFileName());
+
         })
       })
     })
