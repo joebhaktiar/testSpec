@@ -37,6 +37,22 @@ let checkForNullValue = (dataValue, customFunction, falseCase) => {
   }
 }
 
+const setResultData = (resultValue) => {
+
+  if (resultValue !== null && resultValue !== "") {
+    const datatype = typeof resultValue;
+    if (datatype == "string") {
+      const resultValueTrim = resultValue.replace(",", "").replace("$", "")
+      if (!isNaN(resultValueTrim)) {
+        return resultValue;
+      }
+    } else if (datatype == 'number') {
+      return resultValue;
+    }
+  }
+  return "";
+}
+//Current Formated Date Excel Result
 const getFileName = () => {
   const date = new Date();
   const year = date.getFullYear(),
@@ -130,36 +146,23 @@ describe('Test Scenarios Comparison', () => {
               cy.get(`[data-testid="incomeType${j - 1}-input-${data.rows[i][incomeTypeNum]}"]`).click()
               // All Year
               if (data.rows[i][timePeriodOfJobNum] == 'allYear') {
-
                 cy.get(`[data-testid="timePeriodOfJob${j - 1}-input-${data.rows[i][timePeriodOfJobNum]}"]`).click()
-
                 cy.get(`[data-testid="payFrequency${j - 1}-input-${data.rows[i][payFrequencyNum]}"]`).click()
-
                 cy.get(`[data-testid="jobs.${j - 1}.dateLastPayPeriod"]`).type(data.rows[i][recentPayPeriodNum])
-
                 cy.get(`[data-testid=wagesPerPayPeriod${j - 1}-input]`).type(data.rows[i][wagesPerPeriodNum])
-
                 cy.get(`[data-testid=wagesYTD${j - 1}-input]`).type(data.rows[i][wagesYTDNum])
                 if (data.rows[i][isThisCorrectNum] == 'no') {
-
                   cy.get(`[data-testid=isIncomeAmountCorrect${j - 1}-input-${data.rows[i][isThisCorrectNum]}]`).click()
-
                   cy.get(`[data-testid=correctedWages${j - 1}-input]`).type(data.rows[i][annualIncomeManualNum])
-
                 }
                 else {
-
                   cy.get(`[data-testid=isIncomeAmountCorrect${j - 1}-input-${data.rows[i][isThisCorrectNum]}]`).click()
                 }
-
                 cy.get(`[data-testid=taxesPerPayPeriod${j - 1}-input]`).type(`${data.rows[i][taxesPerPeriodNum]}`)
-
                 cy.get(`[data-testid=taxesYTD${j - 1}-input]`).type(`${data.rows[i][taxesYTDNum]}`)
-
               }
               // Present
               if (data.rows[i][timePeriodOfJobNum] == 'currentPortion') {
-
                 cy.get(`[data-testid="timePeriodOfJob${j - 1}-input-${data.rows[i][timePeriodOfJobNum]}"]`).click()
                 cy.get(`[data-testid="jobs.${j - 1}.dateRange.startDate"]`).type(data.rows[i][presentStartDateNum])
                 cy.get(`[data-testid="jobs.${j - 1}.dateRange.endDate"]`).type(data.rows[i][presentEndDateNum]);
@@ -592,15 +595,16 @@ describe('Test Scenarios Comparison', () => {
 
           // Results Page
           // Get Expected witholding
+          cy.writeFile('cypress/fixtures/Results.json', `{ \"Scenario${data.rows[i].Scenarios}\" : { \"Values\" : [`, { flag: 'a+' })
           cy.get('[data-testid=expectedTaxValue]').invoke('text').then((text) => {
             const expectedTaxWithholding = text
             cy.log(expectedTaxWithholding)
             cy.softAssert(expectedTaxWithholding, `${formatter.format(data.rows[i].expectedTaxWithholding)}`, 'No Match');
             if (expectedTaxWithholding == `${formatter.format(data.rows[i].expectedTaxWithholding)}`) {
-              cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, ActualWitolding: expectedTaxWithholding, ExpectedTaxWithholding: `${formatter.format(data.rows[i].expectedTaxWithholding)}`, Match: 'yes' }, { flag: 'a+' })
+              cy.writeFile('cypress/fixtures/Results.json', { Match: 'yes', ActualWitolding: setResultData(expectedTaxWithholding), ExpectedTaxWithholding: `${formatter.format(setResultData(data.rows[i].expectedTaxWithholding))}` }, { flag: 'a+' })
               cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
             } else {
-              cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, ActualWitolding: expectedTaxWithholding, ExpectedTaxWithholding: `${formatter.format(data.rows[i].expectedTaxWithholding)}`, Match: 'no' }, { flag: 'a+' })
+              cy.writeFile('cypress/fixtures/Results.json', { Match: 'no', ActualWitolding: setResultData(expectedTaxWithholding), ExpectedTaxWithholding: `${formatter.format(setResultData(data.rows[i].expectedTaxWithholding))}` }, { flag: 'a+' })
               cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
             }
           })
@@ -610,10 +614,10 @@ describe('Test Scenarios Comparison', () => {
             cy.log(aTaxValue)
             cy.softAssert(aTaxValue, `${formatter.format(data.rows[i].anticipatedTaxObligation)}`, 'No Match');
             if (aTaxValue == `${formatter.format(data.rows[i].anticipatedTaxObligation)}`) {
-              cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, ActualTaxObligaation: aTaxValue, ExpectedTaxObligation: `${formatter.format(data.rows[i].anticipatedTaxObligation)}`, Match: 'yes' }, { flag: 'a+' })
+              cy.writeFile('cypress/fixtures/Results.json', { ActualTaxObligaation: setResultData(aTaxValue), ExpectedTaxObligation: `${formatter.format(setResultData(data.rows[i].anticipatedTaxObligation))}`, Match: 'yes' }, { flag: 'a+' })
               cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
             } else {
-              cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, ActualTaxObligaation: aTaxValue, ExpectedTaxObligation: `${formatter.format(data.rows[i].anticipatedTaxObligation)}`, Match: 'no' }, { flag: 'a+' })
+              cy.writeFile('cypress/fixtures/Results.json', { ActualTaxObligaation: setResultData(aTaxValue), ExpectedTaxObligation: `${formatter.format(setResultData(data.rows[i].anticipatedTaxObligation))}`, Match: 'no' }, { flag: 'a+' })
               cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
             }
           })
@@ -623,10 +627,10 @@ describe('Test Scenarios Comparison', () => {
             cy.log(resultsEstimatedValue)
             cy.softAssert(resultsEstimatedValue, formatter.format(data.rows[i].redundOrOwe), 'No Match');
             if (resultsEstimatedValue == `${formatter.format(data.rows[i].refundOrOwe)}`) {
-              cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, OweOrRefund: resultsEstimatedValue, ExpectedOweOrRefund: `${formatter.format(data.rows[i].refundOrOwe)}`, Match: 'yes' }, { flag: 'a+' })
+              cy.writeFile('cypress/fixtures/Results.json', { OweOrRefund: setResultData(resultsEstimatedValue), ExpectedOweOrRefund: `${formatter.format(setResultData(data.rows[i].refundOrOwe))}`, Match: 'yes' }, { flag: 'a+' })
               cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
             } else {
-              cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, OweOrRefund: resultsEstimatedValue, ExpectedOweOrRefund: `${formatter.format(data.rows[i].refundOrOwe)}`, Match: 'no' }, { flag: 'a+' })
+              cy.writeFile('cypress/fixtures/Results.json', { OweOrRefund: setResultData(resultsEstimatedValue), ExpectedOweOrRefund: `${formatter.format(setResultData(data.rows[i].refundOrOwe))}`, Match: 'no' }, { flag: 'a+' })
               cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
             }
           })
@@ -665,10 +669,10 @@ describe('Test Scenarios Comparison', () => {
               const standardVariable1 = text
               cy.log(standardVariable1)
               if (standardVariable1 == `${formatter.format(data.rows[i].standardVariable1)}`) {
-                cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, StandardVariableJob1: standardVariable1, ExpectedStandardVariable: `${formatter.format(data.rows[i].standardVariable1)}`, Match: 'yes' }, { flag: 'a+' })
+                cy.writeFile('cypress/fixtures/Results.json', { StandardVariableJob1: setResultData(standardVariable1), ExpectedStandardVariable: `${formatter.format(setResultData(data.rows[i].standardVariable1))}`, Match: 'yes' }, { flag: 'a+' })
                 cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
               } else {
-                cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, standarVariableJob1: standardVariable1, ExpectedStandardVariable: `${formatter.format(data.rows[i].standardVariable1)}`, Match: 'no' }, { flag: 'a+' })
+                cy.writeFile('cypress/fixtures/Results.json', { standarVariableJob1: setResultData(standardVariable1), ExpectedStandardVariable: `${formatter.format(setResultData(data.rows[i].standardVariable1))}`, Match: 'no' }, { flag: 'a+' })
                 cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
               }
             })
@@ -679,10 +683,10 @@ describe('Test Scenarios Comparison', () => {
                 const standardVariable2 = text
                 cy.log(standardVariable2)
                 if (standardVariable2 == `${formatter.format(data.rows[i].standardVariable2)}`) {
-                  cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, StandardVariableJob2: standardVariable2, ExpectedStandardVariable: `${formatter.format(data.rows[i].standardVariable2)}`, Match: 'yes' }, { flag: 'a+' })
+                  cy.writeFile('cypress/fixtures/Results.json', { StandardVariableJob2: setResultData(standardVariable2), ExpectedStandardVariable: `${formatter.format(setResultData(data.rows[i].standardVariable2))}`, Match: 'yes' }, { flag: 'a+' })
                   cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
                 } else {
-                  cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, standarVariableJob2: standardVariable2, ExpectedStandardVariable: `${formatter.format(data.rows[i].standardVariable2)}`, Match: 'no' }, { flag: 'a+' })
+                  cy.writeFile('cypress/fixtures/Results.json', { standarVariableJob2: setResultData(standardVariable2), ExpectedStandardVariable: `${formatter.format(setResultData(data.rows[i].standardVariable2))}`, Match: 'no' }, { flag: 'a+' })
                   cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
                 }
               })
@@ -694,10 +698,10 @@ describe('Test Scenarios Comparison', () => {
               const job1RecAt0 = text
               cy.log(job1RecAt0)
               if (job1RecAt0 == `${formatter.format(data.rows[i].Job1Rec0)}`) {
-                cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, Job1RecommendationAtMin: job1RecAt0, ExpectedJob1RecommendationAtMin: `${formatter.format(data.rows[i].Job1Rec0)}`, Match: 'yes' }, { flag: 'a+' })
+                cy.writeFile('cypress/fixtures/Results.json', { Job1RecommendationAtMin: setResultData(job1RecAt0), ExpectedJob1RecommendationAtMin: `${formatter.format(setResultData(data.rows[i].Job1Rec0))}`, Match: 'yes' }, { flag: 'a+' })
                 cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
               } else {
-                cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, Job1RecommendationAtMin: job1RecAt0, ExpectedJob1RecommendationAtMin: `${formatter.format(data.rows[i].Job1Rec0)}`, Match: 'no' }, { flag: 'a+' })
+                cy.writeFile('cypress/fixtures/Results.json', { Job1RecommendationAtMin: setResultData(job1RecAt0), ExpectedJob1RecommendationAtMin: `${formatter.format(setResultData(data.rows[i].Job1Rec0))}`, Match: 'no' }, { flag: 'a+' })
                 cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
               }
             })
@@ -709,10 +713,10 @@ describe('Test Scenarios Comparison', () => {
                 const job2RecAt0 = text
                 cy.log(job2RecAt0)
                 if (job2RecAt0 == `${formatter.format(data.rows[i].Job2Rec0)}`) {
-                  cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, Job2RecommendationAtMin: job2RecAt0, ExpectedJob2RecommendationAtMine: `${formatter.format(data.rows[i].Job2Rec0)}`, Match: 'yes' }, { flag: 'a+' })
+                  cy.writeFile('cypress/fixtures/Results.json', { Job2RecommendationAtMin: setResultData(job2RecAt0), ExpectedJob2RecommendationAtMine: `${formatter.format(setResultData(data.rows[i].Job2Rec0))}`, Match: 'yes' }, { flag: 'a+' })
                   cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
                 } else {
-                  cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, Job2RecommendationAtMin: job2RecAt0, ExpectedJob2RecommendationAtMin: `${formatter.format(data.rows[i].Job2Rec0)}`, Match: 'no' }, { flag: 'a+' })
+                  cy.writeFile('cypress/fixtures/Results.json', { Job2RecommendationAtMin: setResultData(job2RecAt0), ExpectedJob2RecommendationAtMin: `${formatter.format(setResultData(data.rows[i].Job2Rec0))}`, Match: 'no' }, { flag: 'a+' })
                   cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
                 }
               })
@@ -723,10 +727,10 @@ describe('Test Scenarios Comparison', () => {
               const LastEntryMin = text
               cy.log(LastEntryMin)
               if (LastEntryMin == `${formatter.format(data.rows[i].LastEntry0)}`) {
-                cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, LastEntryAtMin: LastEntryMin, ExpectedLastEntryAtMin: `${formatter.format(data.rows[i].LastEntry0)}`, Match: 'yes' }, { flag: 'a+' })
+                cy.writeFile('cypress/fixtures/Results.json', { LastEntryAtMin: setResultData(LastEntryMin), ExpectedLastEntryAtMin: `${formatter.format(setResultData(data.rows[i].LastEntry0))}`, Match: 'yes' }, { flag: 'a+' })
                 cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
               } else {
-                cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, LastEntryAtMin: LastEntryMin, ExpectedLastEntryAtMin: `${formatter.format(data.rows[i].LastEntry0)}`, Match: 'no' }, { flag: 'a+' })
+                cy.writeFile('cypress/fixtures/Results.json', { LastEntryAtMin: setResultData(LastEntryMin), ExpectedLastEntryAtMin: `${formatter.format(setResultData(data.rows[i].LastEntry0))}`, Match: 'no' }, { flag: 'a+' })
                 cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
               }
             })
@@ -754,10 +758,10 @@ describe('Test Scenarios Comparison', () => {
               const job1RecAt1000 = text
               cy.log(job1RecAt1000)
               if (job1RecAt1000 == `${formatter.format(data.rows[i].Job1Rec1000)}`) {
-                cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, Job1RecommendationAtPosition5: job1RecAt1000, ExpectedJob1RecommendationAt1000: `${formatter.format(data.rows[i].Job1Rec1000)}`, Match: 'yes' }, { flag: 'a+' })
+                cy.writeFile('cypress/fixtures/Results.json', { Job1RecommendationAtPosition5: setResultData(job1RecAt1000), ExpectedJob1RecommendationAt1000: `${formatter.format(setResultData(data.rows[i].Job1Rec1000))}`, Match: 'yes' }, { flag: 'a+' })
                 cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
               } else {
-                cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, Job1RecommendationAtPosition5: job1RecAt1000, ExpectedJob1RecommendationAt1000: `${formatter.format(data.rows[i].Job1Rec1000)}`, Match: 'no' }, { flag: 'a+' })
+                cy.writeFile('cypress/fixtures/Results.json', { Job1RecommendationAtPosition5: setResultData(job1RecAt1000), ExpectedJob1RecommendationAt1000: `${formatter.format(setResultData(data.rows[i].Job1Rec1000))}`, Match: 'no' }, { flag: 'a+' })
                 cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
               }
             })
@@ -768,10 +772,10 @@ describe('Test Scenarios Comparison', () => {
                 const job2RecAt1000 = text
                 cy.log(job2RecAt1000)
                 if (job2RecAt1000 == `${formatter.format(data.rows[i].Job2Rec1000)}`) {
-                  cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, Job2RecommendationAtPosition5: job2RecAt1000, ExpectedJob2RecommendationAt1000: `${formatter.format(data.rows[i].Job2Rec1000)}`, Match: 'yes' }, { flag: 'a+' })
+                  cy.writeFile('cypress/fixtures/Results.json', { Job2RecommendationAtPosition5: setResultData(job2RecAt1000), ExpectedJob2RecommendationAt1000: `${formatter.format(setResultData(data.rows[i].Job2Rec1000))}`, Match: 'yes' }, { flag: 'a+' })
                   cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
                 } else {
-                  cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, Job2RecommendationAtPosition5: job2RecAt1000, ExpectedJob2RecommendationAt1000: `${formatter.format(data.rows[i].Job2Rec1000)}`, Match: 'no' }, { flag: 'a+' })
+                  cy.writeFile('cypress/fixtures/Results.json', { Job2RecommendationAtPosition5: setResultData(job2RecAt1000), ExpectedJob2RecommendationAt1000: `${formatter.format(setResultData(data.rows[i].Job2Rec1000))}`, Match: 'no' }, { flag: 'a+' })
                   cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
                 }
               })
@@ -782,10 +786,10 @@ describe('Test Scenarios Comparison', () => {
               const LastEntry1000 = text
               cy.log(LastEntry1000)
               if (LastEntry1000 == `${formatter.format(data.rows[i].LastEntry1000)}`) {
-                cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, LastEntryPosition5: LastEntry1000, ExpectedLastEntryAt1000: `${formatter.format(data.rows[i].LastEntry1000)}`, Match: 'yes' }, { flag: 'a+' })
+                cy.writeFile('cypress/fixtures/Results.json', { LastEntryPosition5: setResultData(LastEntry1000), ExpectedLastEntryAt1000: `${formatter.format(setResultData(data.rows[i].LastEntry1000))}`, Match: 'yes' }, { flag: 'a+' })
                 cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
               } else {
-                cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, LastEntryPosition5: LastEntry1000, ExpectedLastEntryAt1000: `${formatter.format(data.rows[i].LastEntry1000)}`, Match: 'no' }, { flag: 'a+' })
+                cy.writeFile('cypress/fixtures/Results.json', { LastEntryPosition5: setResultData(LastEntry1000), ExpectedLastEntryAt1000: `${formatter.format(setResultData(data.rows[i].LastEntry1000))}`, Match: 'no' }, { flag: 'a+' })
                 cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
               }
             })
@@ -806,10 +810,10 @@ describe('Test Scenarios Comparison', () => {
               const job1RecAt2000 = text
               cy.log(job1RecAt2000)
               if (job1RecAt2000 == `${formatter.format(data.rows[i].Job1Rec2000)}`) {
-                cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, Job1RecommendationAtPosition15: job1RecAt2000, ExpectedJob1RecommendationAt2000: `${formatter.format(data.rows[i].Job1Rec2000)}`, Match: 'yes' }, { flag: 'a+' })
+                cy.writeFile('cypress/fixtures/Results.json', { Job1RecommendationAtPosition15: setResultData(job1RecAt2000), ExpectedJob1RecommendationAt2000: `${formatter.format(setResultData(data.rows[i].Job1Rec2000))}`, Match: 'yes' }, { flag: 'a+' })
                 cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
               } else {
-                cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, Job1RecommendationAtPosition15: job1RecAt2000, ExpectedJob1RecommendationAt2000: `${formatter.format(data.rows[i].Job1Rec2000)}`, Match: 'no' }, { flag: 'a+' })
+                cy.writeFile('cypress/fixtures/Results.json', { Job1RecommendationAtPosition15: setResultData(job1RecAt2000), ExpectedJob1RecommendationAt2000: `${formatter.format(setResultData(data.rows[i].Job1Rec2000))}`, Match: 'no' }, { flag: 'a+' })
                 cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
               }
             })
@@ -820,10 +824,10 @@ describe('Test Scenarios Comparison', () => {
                 const job2RecAt2000 = text
                 cy.log(job2RecAt2000)
                 if (job2RecAt2000 == `${formatter.format(data.rows[i].Job2Rec2000)}`) {
-                  cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, Job2RecommendationAtPosition15: job2RecAt2000, ExpectedJob2RecommendationAt2000: `${formatter.format(data.rows[i].Job2Rec2000)}`, Match: 'yes' }, { flag: 'a+' })
+                  cy.writeFile('cypress/fixtures/Results.json', { Job2RecommendationAtPosition15: setResultData(job2RecAt2000), ExpectedJob2RecommendationAt2000: `${formatter.format(setResultData(data.rows[i].Job2Rec2000))}`, Match: 'yes' }, { flag: 'a+' })
                   cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
                 } else {
-                  cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, Job2RecommendationAtPosition15: job2RecAt2000, ExpectedJob2RecommendationAt2000: `${formatter.format(data.rows[i].Job2Rec2000)}`, Match: 'no' }, { flag: 'a+' })
+                  cy.writeFile('cypress/fixtures/Results.json', { Job2RecommendationAtPosition15: setResultData(job2RecAt2000), ExpectedJob2RecommendationAt2000: `${formatter.format(setResultData(data.rows[i].Job2Rec2000))}`, Match: 'no' }, { flag: 'a+' })
                   cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
                 }
               })
@@ -834,10 +838,10 @@ describe('Test Scenarios Comparison', () => {
               const LastEntry2000 = text
               cy.log(LastEntry2000)
               if (LastEntry2000 == `${formatter.format(data.rows[i].LastEntry2000)}`) {
-                cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, LastEntryAtPosition15: LastEntry2000, ExpectedLastEntryAt2000: `${formatter.format(data.rows[i].LastEntry2000)}`, Match: 'yes' }, { flag: 'a+' })
+                cy.writeFile('cypress/fixtures/Results.json', { LastEntryAtPosition15: setResultData(LastEntry2000), ExpectedLastEntryAt2000: `${formatter.format(setResultData(data.rows[i].LastEntry2000))}`, Match: 'yes' }, { flag: 'a+' })
                 cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
               } else {
-                cy.writeFile('cypress/fixtures/Results.json', { Scenario: data.rows[i].Scenarios, LastEntryAtPosition15: LastEntry2000, ExpectedLastEntryAt2000: `${formatter.format(data.rows[i].LastEntry2000)}`, Match: 'no' }, { flag: 'a+' })
+                cy.writeFile('cypress/fixtures/Results.json', { LastEntryAtPosition15: setResultData(LastEntry2000), ExpectedLastEntryAt2000: `${formatter.format(setResultData(data.rows[i].LastEntry2000))}`, Match: 'no' }, { flag: 'a+' })
                 cy.writeFile('cypress/fixtures/Results.json', ',', { flag: 'a+' })
               }
             })
@@ -845,16 +849,18 @@ describe('Test Scenarios Comparison', () => {
         }// end of loop for all rows scenarios
 
         cy.writeFile('cypress/fixtures/Results.json', '{"results":"ignore"}]', { flag: 'a+' })
+        cy.writeFile('cypress/fixtures/Results.json', `}}]`, { flag: 'a+' })
         cy.fixture('Results.json').as('ResultsJSON')
         cy.get('@ResultsJSON').then((Results) => {
-          /* make the worksheet */
-          const ws = XLSX.utils.json_to_sheet(Results);
-
-          /* add to workbook */
+          cy.writeFile('cypress/fixtures/Results.json', JSON.stringify(Results, null, 2))
+          // add to workbook
           const wb = XLSX.utils.book_new();
-          XLSX.utils.book_append_sheet(wb, ws, 'Results');
-
-          /* generate an XLSX file */
+          Results.forEach(scenarioList => {
+            const scenarioKey = Object.keys(scenarioList)[0];
+            const ws = XLSX.utils.json_to_sheet(scenarioList[scenarioKey]["Values"]);
+            XLSX.utils.book_append_sheet(wb, ws, scenarioKey);
+          })
+          // generate an XLSX file
           XLSX.writeFile(wb, getFileName());
         })
       })

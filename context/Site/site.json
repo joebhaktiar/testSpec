@@ -805,6 +805,11 @@
     "value": 0
   },
   "env": {
+    "local": {
+      "gaCode": "0",
+      "w4Link": "/static-assets/2022/fw4.pdf",
+      "w4pLink": "/static-assets/2022/fw4p.pdf"
+    },
     "dev": {
       "gaCode": "UA-22588183-3",
       "w4Link": "https://apps.irs.gov/fw4.pdf",

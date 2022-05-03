@@ -1,0 +1,16 @@
+{
+  "fw4": {
+    "singleCheckbox": "topmostSubform[0].Page1[0].c1_1[0]",
+    "marriedCheckbox": "topmostSubform[0].Page1[0].c1_1[1]",
+    "HeadOfHouseholdCheckbox": "topmostSubform[0].Page1[0].c1_1[2]",
+    "withheldW4": "topmostSubform[0].Page1[0].f1_12[0]",
+    "creditLine3": "topmostSubform[0].Page1[0].f1_09[0]"
+  },
+  "fw4p": {
+    "singleCheckbox": "topmostSubform[0].Page1[0].c1_2[0]",
+    "marriedCheckbox": "topmostSubform[0].Page1[0].c1_2[1]",
+    "HeadOfHouseholdCheckbox": "topmostSubform[0].Page1[0].c1_2[2]",
+    "allowancesW4p": "topmostSubform[0].Page1[0].f1_7[0]",
+    "withheldW4p": "topmostSubform[0].Page1[0].f1_9[0]"
+  }
+}

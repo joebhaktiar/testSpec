@@ -1,0 +1,360 @@
+{
+  "current_year": 2022,
+  "today": "",
+  "TABLE_CUT_1": 5,
+  "TABLE_CUT_2": 15,
+  "USE_TABLE": 25,
+  "SM_TABLE_DIFF": 25,
+  "BIG_TABLE_DIFF": 50,
+  "USE_SCHEDULES": 100000,
+  "USE_BIG_TABLE_DIFF": 3000,
+  "effective_income_1": 2.5,
+  "effective_income_2": 10,
+  "effective_income_3": 20,
+  "SS_TAX_THRESHOLD_1": [
+    25000,
+    32000,
+    25000,
+    25000,
+    25000
+  ],
+  "SS_TAX_THRESHOLD_2": [
+    9000,
+    12000,
+    9000,
+    9000,
+    9000
+  ],
+  "SD_SINGLE": 12950,
+  "SD_JOINT": 25900,
+  "SD_HOH": 19400,
+  "SD_SEPARATE": 12950,
+  "WH_ALLOW": 4300,
+  "MIN_AMOUNT": 1150,
+  "EARNED_INCOME_BUMP": 400,
+  "SD_SINGLE_FACTOR": 1750,
+  "SD_MARRIED_FACTOR": 1400,
+  "SD_AGED_AND_BLIND_SINGLE": 3500,
+  "SD_AGED_AND_BLIND_MARRIED": 2800,
+  "EXEMPTION": 0,
+  "EXEMPTION_DIVISOR": 1,
+  "EXEMPTION_DIVISOR_SEPARATE": 1,
+  "EX_SINGLE": 999999999,
+  "EX_JOINT": 999999999,
+  "EX_SEPARATE": 999999999,
+  "EX_HOH": 999999999,
+  "EXEMPTION_THRESHHOLD": 0,
+  "EXEMPTION_REDUCER": 0,
+  "med_limit": 0.075,
+  "SALT_tax_limit": 10000,
+  "SALT_tax_limit_mfs": 5000,
+  "STUDENTLOAN_LIMIT_MFJ": 140000,
+  "STUDENTLOAN_LIMIT_OTHER": 70000,
+  "STUDENTLOAN_THRESHOLD_MFJ": 30000,
+  "STUDENTLOAN_THRESHOLD_OTHER": 15000,
+  "ITEM_DEDUCT_REGULAR": 999999999,
+  "ITEM_DEDUCT_SINGLE": 999999999,
+  "ITEM_DEDUCT_HOH": 999999999,
+  "ITEM_DEDUCT_SEPARATE": 999999999,
+  "tax_rate": [
+    0.1,
+    0.12,
+    0.22,
+    0.24,
+    0.32,
+    0.35,
+    0.37
+  ],
+  "wh_rate": [
+    0.1,
+    0.12,
+    0.22,
+    0.24,
+    0.32,
+    0.35,
+    0.37
+  ],
+  "wh_rate_married": [
+    0.1,
+    0.12,
+    0.22,
+    0.24,
+    0.32,
+    0.35,
+    0.37
+  ],
+  "bracket_floor": {
+    "table": [
+      [
+        0,
+        10275,
+        41775,
+        89075,
+        170050,
+        215950,
+        539900
+      ],
+      [
+        0,
+        20550,
+        83550,
+        178150,
+        340100,
+        431900,
+        647850
+      ],
+      [
+        0,
+        10275,
+        41775,
+        89075,
+        170050,
+        215950,
+        323925
+      ],
+      [
+        0,
+        14650,
+        55900,
+        89050,
+        170050,
+        215950,
+        539900
+      ]
+    ]
+  },
+  "wh_bracket_floor": {
+    "table": [
+      [
+        3950,
+        13900,
+        44475,
+        90325,
+        168875,
+        213375,
+        527550
+      ],
+      [
+        12200,
+        32100,
+        93250,
+        184950,
+        342050,
+        431050,
+        640500
+      ],
+      [
+        10200,
+        24400,
+        64400,
+        96550,
+        175100,
+        219600,
+        533800
+      ]
+    ]
+  },
+  "wh_new_bracket_floor": {
+    "table": [
+      [
+        12950,
+        23225,
+        54725,
+        102025,
+        183000,
+        228900,
+        552850
+      ],
+      [
+        25900,
+        46450,
+        109450,
+        204050,
+        366000,
+        457800,
+        673750
+      ],
+      [
+        19400,
+        34050,
+        75300,
+        108450,
+        189450,
+        235350,
+        559300
+      ]
+    ]
+  },
+  "BONUS_WH_RATE": 0.22,
+  "KIDDIETAX_ESTATE_TAX": [
+    2200,
+    2600,
+    9450,
+    12950
+  ],
+  "KIDDIETAX_lookup": {
+    "table": [
+      [
+        9875,
+        40125,
+        518400
+      ],
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        9875,
+        40125,
+        311025
+      ],
+      [
+        14100,
+        53700,
+        518400
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  "CH_CR_LIMIT_JOINT": 400000,
+  "CH_CR_LIMIT_SEPARATE": 200000,
+  "CH_CR_LIMIT_SINGLE": 200000,
+  "CH_CR_AMOUNT": 2000,
+  "CH_CR_AGI_PHASEOUT": 1000,
+  "CH_CR_DIMINISH": 50,
+  "CH_CR_REFUNDABILITY_THRESHOLD": 2500,
+  "NON_CHILD_DEPENDENT_AMOUNT": 500,
+  "CH_DEP_RATES": 16,
+  "CH_DEP_LIMIT": 3000,
+  "CH_DEP_AMT": [
+    0,
+    15000,
+    17000,
+    19000,
+    21000,
+    23000,
+    25000,
+    27000,
+    29000,
+    31000,
+    33000,
+    35000,
+    37000,
+    39000,
+    41000,
+    43000
+  ],
+  "CH_DEP_PCT": [
+    0.35,
+    0.34,
+    0.33,
+    0.32,
+    0.31,
+    0.3,
+    0.29,
+    0.28,
+    0.27,
+    0.26,
+    0.25,
+    0.24,
+    0.23,
+    0.22,
+    0.21,
+    0.2
+  ],
+  "EITC_computation_single": {
+    "table": [
+      [
+        7320,
+        9160,
+        16480,
+        0.0765,
+        560,
+        0.0765
+      ],
+      [
+        10980,
+        20130,
+        43490,
+        0.34,
+        3733,
+        0.1598
+      ],
+      [
+        15410,
+        20130,
+        49399,
+        0.4,
+        6164,
+        0.2106
+      ],
+      [
+        15410,
+        20130,
+        53060,
+        0.45,
+        6935,
+        0.2106
+      ]
+    ]
+  },
+  "EITC_computation_mfj": {
+    "table": [
+      [
+        7320,
+        15290,
+        22610,
+        0.0765,
+        560,
+        0.0765
+      ],
+      [
+        10980,
+        26260,
+        49620,
+        0.34,
+        3733,
+        0.1598
+      ],
+      [
+        15410,
+        26260,
+        55529,
+        0.4,
+        6164,
+        0.2106
+      ],
+      [
+        15410,
+        26260,
+        59190,
+        0.45,
+        6935,
+        0.2106
+      ]
+    ]
+  },
+  "FRACTION_OF_SE_INCOME_SUBJECT_TO_TAX": 0.9235,
+  "SE_INCOME_THRESHOLD": 400,
+  "MEDICARE_TAXRATE": 0.029,
+  "SS_LIMIT": 147000,
+  "SS_TAXRATE": 0.124,
+  "ss_rate": 0.062,
+  "medicare_rate": 0.0145,
+  "addtl_medicare_rate": 0.009,
+  "addtl_medicare_threshold": 0,
+  "addtl_medicare_single_threshold": 200000,
+  "addtl_medicare_mfj_threshold": 250000,
+  "addtl_medicare_mfs_threshold": 125000,
+  "es_threshold": 1000,
+  "studentLoanDeductionCap": 2500,
+  "EDUCATOR_MFJ": 500,
+  "EDUCATOR_NON_MFJ": 250,
+  "QBI_DEDUCT_PCT": 0.2,
+  "SCHEDULE_8812_CHILD_AMT": 1400
+}

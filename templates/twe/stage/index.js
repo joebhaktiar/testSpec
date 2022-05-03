@@ -1,3 +1,3 @@
-const stage = 'dev'
+const stage = 'local'
 
 export default stage

@@ -14,6 +14,8 @@ import '../public/css/react-datepicker.min.css'
 import '../styles/index.css'
 import '../components/Spinner/Spinner.css'
 import stage from '../templates/twe/stage'
+import localPdfParamsURL from '../public/static-assets/2022/pdfParams.json'
+import localCurrentRatesParamsURL from '../public/static-assets/2022/currentRatesParams.json'
 
 function MyApp({ Component, pageProps, router }) {
   const foreseeStage = stage === 'prod' ? 'production' : 'staging'
@@ -49,16 +51,20 @@ function MyApp({ Component, pageProps, router }) {
 
   const fetchParams = async () => {
     try {
-      const { pdfParamsURL } = siteState.site.env[stage]
-      await fetch(pdfParamsURL).then((res) => res.json()).then((data) => setPdfParams(data))
+      if (stage == 'local') {
+        setPdfParams(localPdfParamsURL)
+        setCurrentRateParams(localCurrentRatesParamsURL)
+      }
+      else {
+        const { pdfParamsURL } = siteState.site.env[stage]
+        await fetch(pdfParamsURL).then((res) => res.json()).then((data) => setPdfParams(data))
 
-      const { currentRatesParamsURL } = siteState.site.env[stage]
-      await fetch(currentRatesParamsURL).then((res) => res.json()).then((data) => {
-        setCurrentRateParams(data)
-      })
+        const { currentRatesParamsURL } = siteState.site.env[stage]
+        await fetch(currentRatesParamsURL).then((res) => res.json()).then((data) => setCurrentRateParams(data))
 
-      // const { futureRatesParamsURL } = siteState.site.env[stage]
-      // await fetch(futureRatesParamsURL).then((res) => res.json()).then((data) => setFutureRateParams(data))
+        // const { futureRatesParamsURL } = siteState.site.env[stage]
+        // await fetch(futureRatesParamsURL).then((res) => res.json()).then((data) => setFutureRateParams(data))
+      }
     } catch (e) {
       console.log('Error fetching params', e)
     }
